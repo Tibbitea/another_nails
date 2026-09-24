@@ -1,10 +1,13 @@
 import { useState } from 'react'
 import LengthStep from '../components/designer/LengthStep'
 import ShapeStep from '../components/designer/ShapeStep'
+import DesignPathStep from '../components/designer/DesignPathStep'
+
 import type {
   NailDesign,
   NailLength,
   NailShape,
+  DesignPath,
 } from '../types/designer'
 
 const initialDesign: NailDesign = {
@@ -35,10 +38,17 @@ export default function Designer() {
       shape,
     }))
   }
+  const selectDesignPath = (designPath: DesignPath) => {
+    setDesign((previousDesign) => ({
+        ...previousDesign,
+        designPath,
+    }))
+  }
 
   const canContinue =
     (step === 1 && Boolean(design.length)) ||
-    (step === 2 && Boolean(design.shape))
+    (step === 2 && Boolean(design.shape)) ||
+    (step === 3 && Boolean(design.designPath))
 
   return (
     <main className="designer-page">
@@ -63,17 +73,24 @@ export default function Designer() {
         )}
 
         {step === 3 && (
-          <section className="designer-step">
+          <DesignPathStep
+            value={design.designPath}
+            onChange={selectDesignPath}
+          />
+        )}
+
+        {step === 4 && design.designPath === 'guided' && (
+        <section className="designer-step">
             <header className="step-header">
-              <span className="step-number">PASO 3</span>
+            <span className="step-number">PASO 4</span>
 
-              <h1>¿Cómo quieres crear tu diseño?</h1>
+            <h1>¿Qué estilo te representa?</h1>
 
-              <p>
-                Este será el siguiente paso que vamos a construir.
-              </p>
+            <p>
+                Aquí empezaremos a construir tu diseño personalizado.
+            </p>
             </header>
-          </section>
+        </section>
         )}
 
         <div className="designer-navigation">
@@ -90,7 +107,7 @@ export default function Designer() {
             </button>
           )}
 
-          {step < 3 && (
+          {step < 4 && (
             <button
               type="button"
               className="primary-button"
