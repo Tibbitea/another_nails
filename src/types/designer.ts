@@ -15,12 +15,24 @@ export type DesignPath =
   | 'reference'
   | 'guided'
 
+export type NailStyle =
+  | 'minimal'
+  | 'kawaii'
+  | 'grunge'
+  | 'y2k'
+  | 'gothic'
+  | 'coquette'
+  | 'fairy'
+  | 'romantic'
+  | 'maximalist'
+  | 'abstract'
+
 export interface NailDesign {
   length?: NailLength
   shape?: NailShape
   designPath?: DesignPath
 
-  styles: string[]
+  styles: NailStyle[]
   effects: string[]
   themes: string[]
   colors: string[]

@@ -2,12 +2,14 @@ import { useState } from 'react'
 import LengthStep from '../components/designer/LengthStep'
 import ShapeStep from '../components/designer/ShapeStep'
 import DesignPathStep from '../components/designer/DesignPathStep'
+import StyleStep from '../components/designer/StyleStep'
 
 import type {
   NailDesign,
   NailLength,
   NailShape,
   DesignPath,
+  NailStyle,
 } from '../types/designer'
 
 const initialDesign: NailDesign = {
@@ -44,11 +46,28 @@ export default function Designer() {
         designPath,
     }))
   }
+  const toggleStyle = (style: NailStyle) => {
+    setDesign((previousDesign) => {
+        const alreadySelected =
+        previousDesign.styles.includes(style)
+
+        return {
+        ...previousDesign,
+
+        styles: alreadySelected
+            ? previousDesign.styles.filter(
+                (selectedStyle) => selectedStyle !== style
+            )
+            : [...previousDesign.styles, style],
+        }
+    })
+  }
 
   const canContinue =
     (step === 1 && Boolean(design.length)) ||
     (step === 2 && Boolean(design.shape)) ||
-    (step === 3 && Boolean(design.designPath))
+    (step === 3 && Boolean(design.designPath)) ||
+    (step === 4 && design.styles.length > 0)
 
   return (
     <main className="designer-page">
@@ -80,14 +99,21 @@ export default function Designer() {
         )}
 
         {step === 4 && design.designPath === 'guided' && (
+            <StyleStep
+                values={design.styles}
+                onToggle={toggleStyle}
+            />
+        )}
+        {step === 5 && (
         <section className="designer-step">
             <header className="step-header">
-            <span className="step-number">PASO 4</span>
+            <span className="step-number">PASO 5</span>
 
-            <h1>¿Qué estilo te representa?</h1>
+            <h1>¿Qué efectos te gustan?</h1>
 
             <p>
-                Aquí empezaremos a construir tu diseño personalizado.
+                Aquí elegiremos acabados, texturas y elementos
+                especiales para tus uñas.
             </p>
             </header>
         </section>
@@ -107,7 +133,7 @@ export default function Designer() {
             </button>
           )}
 
-          {step < 4 && (
+          {step < 5 && (
             <button
               type="button"
               className="primary-button"
@@ -119,6 +145,7 @@ export default function Designer() {
               Continuar →
             </button>
           )}
+          
 
         </div>
       </div>
