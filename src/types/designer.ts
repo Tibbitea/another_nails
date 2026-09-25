@@ -27,13 +27,27 @@ export type NailStyle =
   | 'maximalist'
   | 'abstract'
 
+export type NailEffect =
+  | 'cat-eye'
+  | 'chrome'
+  | 'jelly'
+  | 'glitter'
+  | 'pearlescent'
+  | 'aura'
+  | 'matte'
+  | '3d-relief'
+  | 'charms'
+  | 'rhinestones'
+  | '3d-flowers'
+  | 'hand-painted'
+
 export interface NailDesign {
   length?: NailLength
   shape?: NailShape
   designPath?: DesignPath
 
   styles: NailStyle[]
-  effects: string[]
+  effects: NailEffect[]
   themes: string[]
   colors: string[]
   avoid: string[]

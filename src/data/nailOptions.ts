@@ -1,4 +1,4 @@
-import type { NailLength, NailShape, NailStyle } from '../types/designer'
+import type { NailLength, NailShape, NailStyle, NailEffect } from '../types/designer'
 
 interface NailLengthOption {
   id: NailLength
@@ -14,6 +14,12 @@ interface NailShapeOption {
 
 interface NailStyleOption {
   id: NailStyle
+  name: string
+  description: string
+}
+
+interface NailEffectOption {
+  id: NailEffect
   name: string
   description: string
 }
@@ -119,5 +125,68 @@ export const nailStyles: NailStyleOption[] = [
     id: 'abstract',
     name: 'Abstract',
     description: 'Formas, líneas y composiciones artísticas',
+  },
+]
+
+export const nailEffects: NailEffectOption[] = [
+  {
+    id: 'cat-eye',
+    name: 'Cat Eye',
+    description: 'Efecto magnético con profundidad y brillo',
+  },
+  {
+    id: 'chrome',
+    name: 'Chrome',
+    description: 'Acabado metálico y efecto espejo',
+  },
+  {
+    id: 'jelly',
+    name: 'Jelly',
+    description: 'Color translúcido con aspecto brillante',
+  },
+  {
+    id: 'glitter',
+    name: 'Glitter',
+    description: 'Brillo y partículas reflectantes',
+  },
+  {
+    id: 'pearlescent',
+    name: 'Perlado',
+    description: 'Reflejos suaves con acabado nacarado',
+  },
+  {
+    id: 'aura',
+    name: 'Aura',
+    description: 'Degradado difuminado desde el centro',
+  },
+  {
+    id: 'matte',
+    name: 'Mate',
+    description: 'Acabado sin brillo y efecto aterciopelado',
+  },
+  {
+    id: '3d-relief',
+    name: 'Relieve 3D',
+    description: 'Texturas y elementos elevados sobre la uña',
+  },
+  {
+    id: 'charms',
+    name: 'Charms',
+    description: 'Adornos decorativos aplicados sobre las uñas',
+  },
+  {
+    id: 'rhinestones',
+    name: 'Piedras',
+    description: 'Cristales y pequeños elementos brillantes',
+  },
+  {
+    id: '3d-flowers',
+    name: 'Flores 3D',
+    description: 'Flores modeladas con volumen',
+  },
+  {
+    id: 'hand-painted',
+    name: 'Dibujos a mano',
+    description: 'Ilustraciones y detalles pintados a mano',
   },
 ]

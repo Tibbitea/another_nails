@@ -3,6 +3,7 @@ import LengthStep from '../components/designer/LengthStep'
 import ShapeStep from '../components/designer/ShapeStep'
 import DesignPathStep from '../components/designer/DesignPathStep'
 import StyleStep from '../components/designer/StyleStep'
+import EffectStep from '../components/designer/EffectStep'
 
 import type {
   NailDesign,
@@ -10,6 +11,7 @@ import type {
   NailShape,
   DesignPath,
   NailStyle,
+  NailEffect
 } from '../types/designer'
 
 const initialDesign: NailDesign = {
@@ -62,12 +64,29 @@ export default function Designer() {
         }
     })
   }
+  const toggleEffect = (effect: NailEffect) => {
+    setDesign((previousDesign) => {
+        const alreadySelected =
+        previousDesign.effects.includes(effect)
+
+        return {
+        ...previousDesign,
+
+        effects: alreadySelected
+            ? previousDesign.effects.filter(
+                (selectedEffect) => selectedEffect !== effect
+            )
+            : [...previousDesign.effects, effect],
+        }
+    })
+  }
 
   const canContinue =
     (step === 1 && Boolean(design.length)) ||
     (step === 2 && Boolean(design.shape)) ||
     (step === 3 && Boolean(design.designPath)) ||
-    (step === 4 && design.styles.length > 0)
+    (step === 4 && design.styles.length > 0) ||
+    (step === 5 && design.effects.length > 0)
 
   return (
     <main className="designer-page">
@@ -104,19 +123,26 @@ export default function Designer() {
                 onToggle={toggleStyle}
             />
         )}
-        {step === 5 && (
-        <section className="designer-step">
-            <header className="step-header">
-            <span className="step-number">PASO 5</span>
+        {step === 5 && design.designPath === 'guided' && (
+            <EffectStep
+                values={design.effects}
+                onToggle={toggleEffect}
+            />
+        )}
 
-            <h1>¿Qué efectos te gustan?</h1>
+        {step === 6 && design.designPath === 'guided' && (
+            <section className="designer-step">
+                <header className="step-header">
+                    <span className="step-number">PASO 6</span>
 
-            <p>
-                Aquí elegiremos acabados, texturas y elementos
-                especiales para tus uñas.
-            </p>
-            </header>
-        </section>
+                    <h1>¿Qué temática quieres?</h1>
+
+                    <p>
+                        Aquí podrás mezclar diferentes universos,
+                        temporadas e inspiraciones.
+                    </p>
+                </header>
+            </section>
         )}
 
         <div className="designer-navigation">
@@ -133,7 +159,7 @@ export default function Designer() {
             </button>
           )}
 
-          {step < 5 && (
+          {step < 6 && (
             <button
               type="button"
               className="primary-button"
