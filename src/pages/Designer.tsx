@@ -9,6 +9,7 @@ import ColorStep from '../components/designer/ColorStep'
 import AvoidStep from '../components/designer/AvoidStep'
 import ComplexityStep from '../components/designer/ComplexityStep'
 import DesignSummaryStep from '../components/designer/DesignSummaryStep'
+import { buildNailPrompts } from '../utils/buildNailPrompt'
 
 import type {
   NailDesign,
@@ -337,7 +338,32 @@ export default function Designer() {
               type="button"
               className="primary-button generate-button"
               onClick={() => {
-                console.log('Diseño preparado:', design)
+                const prompts = buildNailPrompts(design)
+
+                console.log(
+                  'Diseño preparado:',
+                  design
+                )
+
+                console.log(
+                  'Propuesta 1:',
+                  prompts[0]
+                )
+
+                console.log(
+                  'Propuesta 2:',
+                  prompts[1]
+                )
+
+                console.log(
+                  'Propuesta 3:',
+                  prompts[2]
+                )
+
+                console.log(
+                  'Propuesta 4:',
+                  prompts[3]
+                )
               }}
             >
               ✨ Generar mis diseños
