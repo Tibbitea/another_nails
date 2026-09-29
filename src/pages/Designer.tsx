@@ -4,6 +4,8 @@ import ShapeStep from '../components/designer/ShapeStep'
 import DesignPathStep from '../components/designer/DesignPathStep'
 import StyleStep from '../components/designer/StyleStep'
 import EffectStep from '../components/designer/EffectStep'
+import ThemeStep from '../components/designer/ThemeStep'
+import ColorStep from '../components/designer/ColorStep'
 
 import type {
   NailDesign,
@@ -11,16 +13,22 @@ import type {
   NailShape,
   DesignPath,
   NailStyle,
-  NailEffect
+  NailEffect,
+  NailTheme,
+  ColorMode,
+  ColorPalette,
 } from '../types/designer'
+
 
 const initialDesign: NailDesign = {
   styles: [],
   effects: [],
   themes: [],
   colors: [],
+  colorPalettes: [],
   avoid: [],
   referenceImages: [],
+  
 }
 
 export default function Designer() {
@@ -81,12 +89,104 @@ export default function Designer() {
     })
   }
 
+  const toggleTheme = (theme: NailTheme) => {
+    setDesign((previousDesign) => {
+        const alreadySelected =
+        previousDesign.themes.includes(theme)
+
+        return {
+        ...previousDesign,
+
+        themes: alreadySelected
+            ? previousDesign.themes.filter(
+                (selectedTheme) =>
+                selectedTheme !== theme
+            )
+            : [...previousDesign.themes, theme],
+        }
+    })
+  }
+  const selectColorMode = (colorMode: ColorMode) => {
+    setDesign((previousDesign) => ({
+      ...previousDesign,
+      colorMode,
+      colors: [],
+      colorPalettes: [],
+    }))
+  }
+  const toggleColor = (color: string) => {
+    setDesign((previousDesign) => {
+      const alreadySelected =
+        previousDesign.colors.includes(color)
+
+      return {
+        ...previousDesign,
+
+        colors: alreadySelected
+          ? previousDesign.colors.filter(
+              (selectedColor) =>
+                selectedColor !== color
+            )
+          : [...previousDesign.colors, color],
+      }
+    })
+  }
+  const addCustomColor = (color: string) => {
+    setDesign((previousDesign) => {
+      if (previousDesign.colors.includes(color)) {
+        return previousDesign
+      }
+
+      return {
+        ...previousDesign,
+        colors: [
+          ...previousDesign.colors,
+          color,
+        ],
+      }
+    })
+  }
+  const toggleColorPalette = (
+    palette: ColorPalette) => {
+    setDesign((previousDesign) => {
+      const alreadySelected =
+        previousDesign.colorPalettes.includes(
+          palette
+        )
+
+      return {
+        ...previousDesign,
+
+        colorPalettes: alreadySelected
+          ? previousDesign.colorPalettes.filter(
+              (selectedPalette) =>
+                selectedPalette !== palette
+            )
+          : [
+              ...previousDesign.colorPalettes,
+              palette,
+            ],
+      }
+    })
+  }
+
+  const colorSelectionComplete =
+    (design.colorMode === 'individual' &&
+      design.colors.length > 0) ||
+
+    (design.colorMode === 'palette' &&
+      design.colorPalettes.length > 0) ||
+
+    design.colorMode === 'guided'
+
   const canContinue =
     (step === 1 && Boolean(design.length)) ||
     (step === 2 && Boolean(design.shape)) ||
     (step === 3 && Boolean(design.designPath)) ||
     (step === 4 && design.styles.length > 0) ||
-    (step === 5 && design.effects.length > 0)
+    (step === 5 && design.effects.length > 0) ||
+    (step === 6 && design.themes.length > 0) ||
+    (step === 7 && colorSelectionComplete)
 
   return (
     <main className="designer-page">
@@ -131,18 +231,42 @@ export default function Designer() {
         )}
 
         {step === 6 && design.designPath === 'guided' && (
-            <section className="designer-step">
-                <header className="step-header">
-                    <span className="step-number">PASO 6</span>
+            <ThemeStep
+                values={design.themes}
+                onToggle={toggleTheme}
+            />
+        )}
 
-                    <h1>¿Qué temática quieres?</h1>
+        {step === 7 && design.designPath === 'guided' && (
+          <ColorStep
+            mode={design.colorMode}
+            colors={design.colors}
+            palettes={design.colorPalettes}
+            onModeChange={selectColorMode}
+            onToggleColor={toggleColor}
+            onAddCustom={addCustomColor}
+            onTogglePalette={toggleColorPalette}
+          />
+        )}
+        {step === 8 && design.designPath === 'guided' && (
+          <section className="designer-step">
+            <header className="step-header">
 
-                    <p>
-                        Aquí podrás mezclar diferentes universos,
-                        temporadas e inspiraciones.
-                    </p>
-                </header>
-            </section>
+              <span className="step-number">
+                PASO 8
+              </span>
+
+              <h1>
+                ¿Qué NO quieres?
+              </h1>
+
+              <p>
+                Cuéntanos qué elementos, efectos o estilos
+                prefieres evitar.
+              </p>
+
+            </header>
+          </section>
         )}
 
         <div className="designer-navigation">
@@ -159,7 +283,7 @@ export default function Designer() {
             </button>
           )}
 
-          {step < 6 && (
+          {step < 8 && (
             <button
               type="button"
               className="primary-button"

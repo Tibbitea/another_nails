@@ -1,4 +1,4 @@
-import type { NailLength, NailShape, NailStyle, NailEffect } from '../types/designer'
+import type { NailLength, NailShape, NailStyle, NailEffect, NailTheme, ColorPalette, } from '../types/designer'
 
 interface NailLengthOption {
   id: NailLength
@@ -23,6 +23,14 @@ interface NailEffectOption {
   name: string
   description: string
 }
+
+interface NailThemeOption {
+  id: NailTheme
+  name: string
+  category: string
+}
+
+
 
 export const nailLengths: NailLengthOption[] = [
   {
@@ -188,5 +196,290 @@ export const nailEffects: NailEffectOption[] = [
     id: 'hand-painted',
     name: 'Dibujos a mano',
     description: 'Ilustraciones y detalles pintados a mano',
+  },
+]
+export const nailThemes: NailThemeOption[] = [
+  {
+    id: 'halloween',
+    name: 'Halloween',
+    category: 'Temporadas',
+  },
+  {
+    id: 'christmas',
+    name: 'Navidad',
+    category: 'Temporadas',
+  },
+  {
+    id: 'valentines',
+    name: 'San Valentín',
+    category: 'Temporadas',
+  },
+  {
+    id: 'summer',
+    name: 'Verano',
+    category: 'Temporadas',
+  },
+  {
+    id: 'spring',
+    name: 'Primavera',
+    category: 'Temporadas',
+  },
+  {
+    id: 'autumn',
+    name: 'Otoño',
+    category: 'Temporadas',
+  },
+  {
+    id: 'winter',
+    name: 'Invierno',
+    category: 'Temporadas',
+  },
+
+  {
+    id: 'ocean',
+    name: 'Mar',
+    category: 'Naturaleza',
+  },
+  {
+    id: 'flowers',
+    name: 'Flores',
+    category: 'Naturaleza',
+  },
+  {
+    id: 'forest',
+    name: 'Bosque',
+    category: 'Naturaleza',
+  },
+  {
+    id: 'butterflies',
+    name: 'Mariposas',
+    category: 'Naturaleza',
+  },
+  {
+    id: 'stars',
+    name: 'Estrellas',
+    category: 'Naturaleza',
+  },
+  {
+    id: 'moon',
+    name: 'Luna',
+    category: 'Naturaleza',
+  },
+
+  {
+    id: 'tarot',
+    name: 'Tarot',
+    category: 'Fantasía',
+  },
+  {
+    id: 'mermaid',
+    name: 'Sirenas',
+    category: 'Fantasía',
+  },
+  {
+    id: 'fairy',
+    name: 'Hadas',
+    category: 'Fantasía',
+  },
+  {
+    id: 'zodiac',
+    name: 'Zodiaco',
+    category: 'Fantasía',
+  },
+
+  {
+    id: 'anime',
+    name: 'Anime',
+    category: 'Cultura pop',
+  },
+  {
+    id: 'gaming',
+    name: 'Videojuegos',
+    category: 'Cultura pop',
+  },
+  {
+    id: 'music',
+    name: 'Música',
+    category: 'Cultura pop',
+  },
+
+  {
+    id: 'vintage',
+    name: 'Vintage',
+    category: 'Arte',
+  },
+  {
+    id: 'baroque',
+    name: 'Barroco',
+    category: 'Arte',
+  },
+]
+
+interface NailColorOption {
+  name: string
+  value: string
+}
+
+interface ColorPaletteOption {
+  id: ColorPalette
+  name: string
+  colors: string[]
+}
+
+export const nailColors: NailColorOption[] = [
+  {
+    name: 'Negro',
+    value: '#111111',
+  },
+  {
+    name: 'Blanco',
+    value: '#ffffff',
+  },
+  {
+    name: 'Rojo',
+    value: '#c92a2a',
+  },
+  {
+    name: 'Rosa',
+    value: '#f4a6c1',
+  },
+  {
+    name: 'Rosa pastel',
+    value: '#f8c8dc',
+  },
+  {
+    name: 'Morado',
+    value: '#8e44ad',
+  },
+  {
+    name: 'Lavanda',
+    value: '#c8b6e2',
+  },
+  {
+    name: 'Azul',
+    value: '#3b82f6',
+  },
+  {
+    name: 'Azul claro',
+    value: '#a7d8f0',
+  },
+  {
+    name: 'Verde',
+    value: '#4f8a5b',
+  },
+  {
+    name: 'Verde pastel',
+    value: '#b7d7b0',
+  },
+  {
+    name: 'Amarillo',
+    value: '#f4d35e',
+  },
+  {
+    name: 'Naranja',
+    value: '#f28c45',
+  },
+  {
+    name: 'Beige',
+    value: '#ddc7a1',
+  },
+  {
+    name: 'Marrón',
+    value: '#795548',
+  },
+  {
+    name: 'Gris',
+    value: '#9ca3af',
+  },
+  {
+    name: 'Plateado',
+    value: '#c0c0c0',
+  },
+  {
+    name: 'Dorado',
+    value: '#d4af37',
+  },
+]
+
+export const nailColorPalettes: ColorPaletteOption[] = [
+  {
+    id: 'pastel',
+    name: 'Pasteles',
+    colors: ['#F8C8DC', '#CDB4DB', '#BDE0FE', '#B7E4C7'],
+  },
+  {
+    id: 'dark',
+    name: 'Oscuros',
+    colors: ['#111111', '#2B193D', '#4A0E0E', '#263238'],
+  },
+  {
+    id: 'earthy',
+    name: 'Tierra',
+    colors: ['#7F5539', '#B08968', '#DDB892', '#A68A64'],
+  },
+  {
+    id: 'neutral',
+    name: 'Neutros',
+    colors: ['#F5F1EB', '#DDD3C5', '#A89F91', '#514D48'],
+  },
+  {
+    id: 'warm',
+    name: 'Cálidos',
+    colors: ['#E63946', '#F77F00', '#FCBF49', '#D62828'],
+  },
+  {
+    id: 'cool',
+    name: 'Fríos',
+    colors: ['#4361EE', '#4CC9F0', '#7209B7', '#3A0CA3'],
+  },
+  {
+    id: 'pink',
+    name: 'Gama rosa',
+    colors: ['#FFD6E0', '#FFAFCC', '#FF70A6', '#C9184A'],
+  },
+  {
+    id: 'blue',
+    name: 'Gama azul',
+    colors: ['#CAF0F8', '#48CAE4', '#0077B6', '#023E8A'],
+  },
+  {
+    id: 'green',
+    name: 'Gama verde',
+    colors: ['#D8F3DC', '#74C69D', '#40916C', '#1B4332'],
+  },
+  {
+    id: 'purple',
+    name: 'Gama morada',
+    colors: ['#E0AAFF', '#C77DFF', '#9D4EDD', '#5A189A'],
+  },
+  {
+    id: 'red',
+    name: 'Gama roja',
+    colors: ['#FFCCD5', '#E63946', '#C1121F', '#780000'],
+  },
+  {
+    id: 'sunset',
+    name: 'Atardecer',
+    colors: ['#FFB703', '#FB8500', '#EF476F', '#8338EC'],
+  },
+  {
+    id: 'ocean',
+    name: 'Océano',
+    colors: ['#ADE8F4', '#00B4D8', '#0077B6', '#03045E'],
+  },
+  {
+    id: 'autumn',
+    name: 'Otoño',
+    colors: ['#BC6C25', '#DDA15E', '#606C38', '#7F4F24'],
+  },
+  {
+    id: 'candy',
+    name: 'Candy',
+    colors: ['#FFAFCC', '#BDE0FE', '#CDB4DB', '#FFFFB7'],
+  },
+  {
+    id: 'metallic',
+    name: 'Metálicos',
+    colors: ['#D4AF37', '#C0C0C0', '#B87333', '#8A8D8F'],
   },
 ]

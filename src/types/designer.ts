@@ -41,6 +41,53 @@ export type NailEffect =
   | '3d-flowers'
   | 'hand-painted'
 
+export type NailTheme =
+  | 'halloween'
+  | 'christmas'
+  | 'valentines'
+  | 'summer'
+  | 'spring'
+  | 'autumn'
+  | 'winter'
+  | 'ocean'
+  | 'flowers'
+  | 'forest'
+  | 'butterflies'
+  | 'stars'
+  | 'moon'
+  | 'tarot'
+  | 'mermaid'
+  | 'fairy'
+  | 'anime'
+  | 'gaming'
+  | 'music'
+  | 'zodiac'
+  | 'vintage'
+  | 'baroque'
+
+export type ColorMode =
+  | 'individual'
+  | 'palette'
+  | 'guided'
+
+export type ColorPalette =
+  | 'pastel'
+  | 'dark'
+  | 'earthy'
+  | 'neutral'
+  | 'warm'
+  | 'cool'
+  | 'pink'
+  | 'blue'
+  | 'green'
+  | 'purple'
+  | 'red'
+  | 'sunset'
+  | 'ocean'
+  | 'autumn'
+  | 'candy'
+  | 'metallic'
+
 export interface NailDesign {
   length?: NailLength
   shape?: NailShape
@@ -48,8 +95,10 @@ export interface NailDesign {
 
   styles: NailStyle[]
   effects: NailEffect[]
-  themes: string[]
+  themes: NailTheme[]
+  colorMode?: ColorMode
   colors: string[]
+  colorPalettes: ColorPalette[]
   avoid: string[]
 
   complexity?: number
