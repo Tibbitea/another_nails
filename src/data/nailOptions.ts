@@ -483,3 +483,67 @@ export const nailColorPalettes: ColorPaletteOption[] = [
     colors: ['#D4AF37', '#C0C0C0', '#B87333', '#8A8D8F'],
   },
 ]
+
+interface AvoidOption {
+  id: string
+  name: string
+}
+
+export const avoidOptions: AvoidOption[] = [
+  {
+    id: 'rhinestones',
+    name: 'Sin piedras',
+  },
+  {
+    id: 'charms',
+    name: 'Sin charms',
+  },
+  {
+    id: '3d',
+    name: 'Sin relieve 3D',
+  },
+  {
+    id: 'glitter',
+    name: 'Sin glitter',
+  },
+  {
+    id: 'french',
+    name: 'Sin francesa',
+  },
+  {
+    id: 'flowers',
+    name: 'Sin flores',
+  },
+  {
+    id: 'hearts',
+    name: 'Sin corazones',
+  },
+  {
+    id: 'faces',
+    name: 'Sin caras',
+  },
+  {
+    id: 'text',
+    name: 'Sin letras o texto',
+  },
+  {
+    id: 'animal-print',
+    name: 'Sin animal print',
+  },
+  {
+    id: 'dark-colors',
+    name: 'Sin colores oscuros',
+  },
+  {
+    id: 'pastel-colors',
+    name: 'Sin colores pastel',
+  },
+  {
+    id: 'too-busy',
+    name: 'Nada demasiado cargado',
+  },
+  {
+    id: 'too-simple',
+    name: 'Nada demasiado simple',
+  },
+]

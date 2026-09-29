@@ -6,6 +6,7 @@ import StyleStep from '../components/designer/StyleStep'
 import EffectStep from '../components/designer/EffectStep'
 import ThemeStep from '../components/designer/ThemeStep'
 import ColorStep from '../components/designer/ColorStep'
+import AvoidStep from '../components/designer/AvoidStep'
 
 import type {
   NailDesign,
@@ -169,7 +170,32 @@ export default function Designer() {
       }
     })
   }
+  const toggleAvoid = (value: string) => {
+    setDesign((previousDesign) => {
+      const alreadySelected =
+        previousDesign.avoid.includes(value)
 
+      return {
+        ...previousDesign,
+
+        avoid: alreadySelected
+          ? previousDesign.avoid.filter(
+              (selectedValue) =>
+                selectedValue !== value
+            )
+          : [
+              ...previousDesign.avoid,
+              value,
+            ],
+      }
+    })
+  }
+  const changeAvoidNotes = (avoidNotes: string) => {
+    setDesign((previousDesign) => ({
+      ...previousDesign,
+      avoidNotes,
+    }))
+  }
   const colorSelectionComplete =
     (design.colorMode === 'individual' &&
       design.colors.length > 0) ||
@@ -186,7 +212,8 @@ export default function Designer() {
     (step === 4 && design.styles.length > 0) ||
     (step === 5 && design.effects.length > 0) ||
     (step === 6 && design.themes.length > 0) ||
-    (step === 7 && colorSelectionComplete)
+    (step === 7 && colorSelectionComplete) ||
+    step == 8
 
   return (
     <main className="designer-page">
@@ -249,20 +276,28 @@ export default function Designer() {
           />
         )}
         {step === 8 && design.designPath === 'guided' && (
+          <AvoidStep
+            values={design.avoid}
+            notes={design.avoidNotes}
+            onToggle={toggleAvoid}
+            onNotesChange={changeAvoidNotes}
+          />
+        )}
+        {step === 9 && design.designPath === 'guided' && (
           <section className="designer-step">
             <header className="step-header">
 
               <span className="step-number">
-                PASO 8
+                PASO 9
               </span>
 
               <h1>
-                ¿Qué NO quieres?
+                ¿Cómo de cargado quieres el diseño?
               </h1>
 
               <p>
-                Cuéntanos qué elementos, efectos o estilos
-                prefieres evitar.
+                En el siguiente paso elegiremos el nivel de detalle
+                de tus press-on.
               </p>
 
             </header>
@@ -283,7 +318,7 @@ export default function Designer() {
             </button>
           )}
 
-          {step < 8 && (
+          {step < 9 && (
             <button
               type="button"
               className="primary-button"

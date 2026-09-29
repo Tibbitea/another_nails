@@ -189,3 +189,91 @@ button {
   color: white;
   border-color: #1c1c1c;
 }
+
+.avoid-grid {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 12px;
+}
+
+.avoid-option {
+  padding: 13px 18px;
+
+  background: white;
+
+  color: #1c1c1c;
+
+  border: 2px solid transparent;
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.04);
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.avoid-option:hover {
+  transform: translateY(-2px);
+
+  border-color: #aaa;
+}
+
+.avoid-option.selected {
+  color: white;
+  background: #1c1c1c;
+
+  border-color: #1c1c1c;
+}
+
+.avoid-notes {
+  margin-top: 45px;
+
+  padding: 28px;
+
+  background: white;
+
+  border-radius: 20px;
+}
+
+.avoid-notes h2 {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.avoid-notes p {
+  margin-top: 0;
+
+  opacity: 0.6;
+}
+
+.avoid-notes textarea {
+  width: 100%;
+
+  margin-top: 15px;
+
+  padding: 16px;
+
+  font: inherit;
+
+  line-height: 1.5;
+
+  resize: vertical;
+
+  background: #fafafa;
+
+  border: 1px solid #ddd;
+  border-radius: 14px;
+
+  outline: none;
+}
+
+.avoid-notes textarea:focus {
+  border-color: #1c1c1c;
+}
