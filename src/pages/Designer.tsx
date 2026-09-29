@@ -8,6 +8,7 @@ import ThemeStep from '../components/designer/ThemeStep'
 import ColorStep from '../components/designer/ColorStep'
 import AvoidStep from '../components/designer/AvoidStep'
 import ComplexityStep from '../components/designer/ComplexityStep'
+import DesignSummaryStep from '../components/designer/DesignSummaryStep'
 
 import type {
   NailDesign,
@@ -299,22 +300,9 @@ export default function Designer() {
           />
         )}
         {step === 10 && design.designPath === 'guided' && (
-          <section className="designer-step">
-            <header className="step-header">
-
-              <span className="step-number">
-                PASO 10
-              </span>
-
-              <h1>Tu diseño está preparado</h1>
-
-              <p>
-                En el siguiente paso revisaremos todas tus elecciones
-                antes de generar las propuestas con IA.
-              </p>
-
-            </header>
-          </section>
+          <DesignSummaryStep
+            design={design}
+          />
         )}
 
         <div className="designer-navigation">
@@ -341,6 +329,18 @@ export default function Designer() {
               }
             >
               Continuar →
+            </button>
+          )}
+
+          {step === 10 && (
+            <button
+              type="button"
+              className="primary-button generate-button"
+              onClick={() => {
+                console.log('Diseño preparado:', design)
+              }}
+            >
+              ✨ Generar mis diseños
             </button>
           )}
           
