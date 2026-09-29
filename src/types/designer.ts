@@ -104,6 +104,7 @@ export interface NailDesign {
   complexity?: number
   comments?: string
   avoidNotes?: string
+  complexity?: number
 
   referenceImages: File[]
 }
