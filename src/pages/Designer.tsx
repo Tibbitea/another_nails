@@ -9,7 +9,8 @@ import ColorStep from '../components/designer/ColorStep'
 import AvoidStep from '../components/designer/AvoidStep'
 import ComplexityStep from '../components/designer/ComplexityStep'
 import DesignSummaryStep from '../components/designer/DesignSummaryStep'
-import { buildNailPrompts } from '../utils/buildNailPrompt'
+import { generateDesigns } from '../services/designApi'
+
 
 import type {
   NailDesign,
@@ -41,6 +42,15 @@ export default function Designer() {
   const [design, setDesign] =
     useState<NailDesign>(initialDesign)
 
+  const [generatedPrompts, setGeneratedPrompts] =
+    useState<string[]>([])
+
+  const [isGenerating, setIsGenerating] =
+    useState(false)
+
+  const [generationError, setGenerationError] =
+    useState<string | null>(null)
+
   const selectLength = (length: NailLength) => {
     setDesign((previousDesign) => ({
       ...previousDesign,
@@ -48,6 +58,29 @@ export default function Designer() {
     }))
   }
 
+  const handleGenerateDesigns = async () => {
+    try {
+      setIsGenerating(true)
+      setGenerationError(null)
+
+      const response = await generateDesigns(design)
+
+      console.log(
+        'Respuesta del backend:',
+        response
+      )
+
+      setGeneratedPrompts(response.prompts)
+    } catch (error) {
+      console.error(error)
+
+      setGenerationError(
+        'No se han podido generar las propuestas.'
+      )
+    } finally {
+      setIsGenerating(false)
+    }
+  }
   const selectShape = (shape: NailShape) => {
     setDesign((previousDesign) => ({
       ...previousDesign,
@@ -301,78 +334,83 @@ export default function Designer() {
           />
         )}
         {step === 10 && design.designPath === 'guided' && (
-          <DesignSummaryStep
-            design={design}
-          />
+          <section>
+            <DesignSummaryStep
+              design={design}
+            />
+
+            {generationError && (
+              <p className="generation-error">
+                {generationError}
+              </p>
+            )}
+
+            {generatedPrompts.length > 0 && (
+              <div className="generated-results">
+                <h2>Propuestas recibidas</h2>
+
+                {generatedPrompts.map((prompt, index) => (
+                  <div
+                    key={index}
+                    className="generated-result"
+                  >
+                    <strong>
+                      Propuesta {index + 1}
+                    </strong>
+
+                    <p>{prompt}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
         )}
 
         <div className="designer-navigation">
 
-          {step > 1 && (
-            <button
-              type="button"
-              className="secondary-button"
-              onClick={() =>
-                setStep((currentStep) => currentStep - 1)
-              }
-            >
-              ← Atrás
-            </button>
-          )}
+        {step > 1 && (
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() =>
+              setStep((currentStep) => currentStep - 1)
+            }
+          >
+            ← Atrás
+          </button>
+        )}
 
-          {step < 10 && (
-            <button
-              type="button"
-              className="primary-button"
-              disabled={!canContinue}
-              onClick={() =>
-                setStep((currentStep) => currentStep + 1)
-              }
-            >
-              Continuar →
-            </button>
-          )}
+        {step < 10 && (
+          <button
+            type="button"
+            className="primary-button"
+            disabled={!canContinue}
+            onClick={() =>
+              setStep((currentStep) => currentStep + 1)
+            }
+          >
+            Continuar →
+          </button>
+        )}
 
-          {step === 10 && (
-            <button
-              type="button"
-              className="primary-button generate-button"
-              onClick={() => {
-                const prompts = buildNailPrompts(design)
+        {step === 10 && (
+          <button
+            type="button"
+            className="primary-button generate-button"
+            onClick={handleGenerateDesigns}
+            disabled={isGenerating}
+          >
+            {isGenerating
+              ? 'Generando...'
+              : '✨ Generar mis diseños'}
+          </button>
+        )}
 
-                console.log(
-                  'Diseño preparado:',
-                  design
-                )
-
-                console.log(
-                  'Propuesta 1:',
-                  prompts[0]
-                )
-
-                console.log(
-                  'Propuesta 2:',
-                  prompts[1]
-                )
-
-                console.log(
-                  'Propuesta 3:',
-                  prompts[2]
-                )
-
-                console.log(
-                  'Propuesta 4:',
-                  prompts[3]
-                )
-              }}
-            >
-              ✨ Generar mis diseños
-            </button>
-          )}
+      </div>
           
 
-        </div>
       </div>
+      
     </main>
   )
 }
