@@ -8,20 +8,17 @@ import java.util.List;
 @Service
 public class DesignGenerationService {
 
+    private final NailPromptBuilder nailPromptBuilder;
+
+    public DesignGenerationService(
+            NailPromptBuilder nailPromptBuilder) {
+
+        this.nailPromptBuilder = nailPromptBuilder;
+    }
+
     public List<String> generatePrompts(
             GenerateDesignRequest request) {
 
-        String base =
-                "Press-on nails: "
-                + request.getLength()
-                + ", "
-                + request.getShape();
-
-        return List.of(
-                base + " - faithful interpretation",
-                base + " - elegant interpretation",
-                base + " - artistic interpretation",
-                base + " - bold interpretation"
-        );
+        return nailPromptBuilder.buildPrompts(request);
     }
 }
